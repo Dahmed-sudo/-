@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شجرة اهل دداه - المختار بن سيدي</title>
+    <title>شجرة العائلة التفاعلية - المختار بن سيدي</title>
     <style>
-        
         @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
         
         * {
@@ -31,25 +30,6 @@
             padding: 40px;
             overflow-x: auto;
         }
-          body {
-        height: 200vh; /* Force le contenu à être plus haut que l'écran */
-        margin: 0;
-    }
-
-    /* Personnalisation de la barre de défilement */
-    ::-webkit-scrollbar {
-        width: 8px; /* Largeur */
-    }
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1; /* Couleur du fond */
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #ccc; /* Couleur du curseur */
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #999; /* Couleur au survol */
-    }
 
         .title {
             text-align: center;
@@ -89,21 +69,26 @@
             gap: 30px;
             padding: 20px;
             min-height: 800px;
+            max-height: 1200px;
             background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
             border-radius: 15px;
             overflow-x: auto;
+            overflow-y: hidden;
         }
 
         .family-column {
             display: flex;
             flex-direction: column;
             min-width: 280px;
+            max-width: 320px;
             background: white;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             padding: 20px;
             position: relative;
             transition: all 0.3s ease;
+            overflow-y: auto;
+            max-height: 1100px;
         }
 
         .family-column:hover {
@@ -176,15 +161,17 @@
             flex-direction: column;
             gap: 15px;
             opacity: 1;
-            max-height: 1000px;
-            overflow: hidden;
+            max-height: none;
+            overflow-y: auto;
             transition: all 0.5s ease;
+            flex: 1;
         }
 
         .children-container.hidden {
             opacity: 0;
             max-height: 0;
             margin-top: 0;
+            overflow: hidden;
         }
 
         .child-card {
@@ -347,26 +334,60 @@
             opacity: 0.9;
         }
 
+        /* Custom scrollbar for family columns */
+        .family-column::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .family-column::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .family-column::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .family-column::-webkit-scrollbar-thumb:hover {
+            background: #5a67d8;
+        }
+
+        .children-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .children-container::-webkit-scrollbar-track {
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .children-container::-webkit-scrollbar-thumb {
+            background: #dee2e6;
+            border-radius: 5px;
+        }
+
         @media (max-width: 768px) {
             .tree-container {
                 flex-direction: column;
                 gap: 20px;
+                max-height: none;
             }
             
             .family-column {
                 min-width: 100%;
+                max-height: 600px;
             }
             
             .search-input {
                 width: 90%;
             }
         }
-        
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">شجرة عائلة   سيدي - دداه   </h1>
+        <h1 class="title">شجرة عائلة  سيدي - دداه  </h1>
         
         
 
@@ -382,10 +403,9 @@
     </div>
 
     <script>
-        
         // Family tree data structure
         const familyData = {
-            "  سيدي - دداه  ": {
+            "    سيدي - دداه ": {
                 details: " ام ابناءه اخديجه بنت المختار ولد المالحه الملقبه ابابه",
                 generation: 0,
                 children: {
@@ -402,18 +422,101 @@
                     "سيد احمد": {
                         details: "",
                         generation: 1,
-                        children: {
-                            "ربيعة": { details: "أم إبناء عتيق ولد محمد الحاجب", generation: 2, children: {} },  
-                            "محمد يحظيه   ": { details: " لم يعقب", generation: 2, children: {} },
-                            "سيدي": { details: "", generation: 2, children: {} },
-                            "المختار": { details: "لم يعقب", generation: 2, children: {} },
-                            "محمد محمود": { details: "الملقب أمود", generation: 2, children: {} },
-                            "السالك": { details: "", generation: 2, children: {} },
-                            "فاطمه السالكه": { details: "أسرة أحمد ولد أصغير", generation: 2, children: {} },
-                            "مريم": { details: "لم تعقب", generation: 2, children: {} },
-                            "إبراهيم": { details: "", generation: 2, children: {} },
-                            "خدجوه": { details: "أم إبناء أرزون ولد محمد خيوه و عبد الرحمن", generation: 2, children: {} },
-                            "متو": { details: "أم إبناء سيد أحمد ولد القروي", generation: 2, children: {} }
+                        children: {  
+                            "محمد يحظيه   ": { details: " ام اخديجه منت امحميد", generation: 2, children: {}
+                        },
+                            "سيدي": { details: "امه اخديجه منت امحميد", generation: 2, children: {
+                            "الدحدي":{details:"  امه افطيم منت الدحه ولد حمها",generation:1,children:{
+                            "فاطمة":{details:"  امهم متو منت السالك ولد الدحدي",generation:1,children:{}},
+                            "السالك":{details:"  امهم متو منت السالك ولد الدحدي",generation:1,children:{}},
+                            "محمد لمين":{details:"  امهم متو منت السالك ولد الدحدي",generation:1,children:{}},
+                            " مريم":{details:"  امهم متو منت السالك ولد الدحدي",generation:1,children:{}},
+                               
+
+                            }},
+                            "اوليده":{details:" امه افطيم منت الدحه ولد حمها",generation:1,children:{
+                            "السالك":{details:"  امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن   ",generation:1,children:{
+                                
+                            }}, 
+                            "سيدي":{details:"    امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن  ",generation:1,children:{}}, 
+                            "فاطمة":{details:"    امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن  ",generation:1,children:{}},
+                            "متو":{details:"    امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن  ",generation:1,children:{}},
+                            "محمد لمين":{details:"    امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن  ",generation:1,children:{}},
+                            "خدجوه":{details:"    امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن  ",generation:1,children:{}},
+                            "الدحدي":{details:"    امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن  ",generation:1,children:{}},
+                            " امحاسن":{details:"    امهم مريم منت محمد الحسن ولد محمود الملقب امحاسن  ",generation:1,children:{}},
+                            
+                            }},
+                            "محمد":{details:"  امه افطيم منت الدحه ولد حمها",generation:1,children:{
+                            "سيدي":{details:"   امه فاطمة منت  ابهاه      ",generation:1,children:{}}, 
+                            "فاطمة":{details:"   امه فاطمة منت  ابهاه      ",generation:1,children:{}},
+                            "محمد عالي":{details:"   امه فاطمة منت  ابهاه      ",generation:1,children:{}},
+                            " اعلي":{details:"   امه فاطمة منت  ابهاه      ",generation:1,children:{}},
+                            
+
+                               
+                            }},
+
+
+                        } },
+                            "المختار": { details: "امه اخديجه منت امحميد ", generation: 2, children: {} },
+                            "محمد محمود": { details: " امه الغالية منت ابهاه ولد محمد سالم ولد ابها", generation: 2, children: {
+                            "تومنه اسرة اهل الفيلالي":{details:"  البهجه منت احبيب ",generation:1,children:{}},
+                            "افيتي اسرة اهل بيروك":{details:"  البهجه منت احبيب  ",generation:1,children:{}},
+                            "  امغيني اسرة اهل الكيحل ":{details:"  البهجه منت احبيب  ",generation:1,children:{}},
+                            "محمد سالم الملقب سالم":{details:"  البهجه منت احبيب  ",generation:1,children:{
+                            "فاطمة السالكة": {details:"    امهم مريم منت ايده ولد محمد احمد ولد ابهاه  ",generation:1,children:{}},
+                            "البهجه ": {details:"    امهم مريم منت ايده ولد محمد احمد ولد ابهاه  ",generation:1,children:{}}  
+                            }},
+                            "فاطمة اسرة محفوظ ولد احمد زلد ازوين":{details:"  البهجه منت احبيب  ",generation:1,children:{}},
+                            "اديده اسرة حماده ولد الحافظ":{details:"  البهجه منت احبيب  ",generation:1,children:{}},
+                            "خدامه اسرة اهل انقية":{details:"  البهجه منت احبيب  ",generation:1,children:{}},
+                            "مريم اسرة اهل لعبيد":{details:"  البهجه منت احبيب  ",generation:1,children:{}},
+                            } },
+                            "السالك": { details: "امهم الغالية منت ابهاه ولد محمد سالم ولد ابها", generation: 2, children: {
+                            "الحافظ": { details: "  صفية بنت احمد  الحاج", generation: 2, children: {} },
+                            "محمد": { details: "  صفية بنت احمد  الحاج   ", generation: 2, children: {
+                            "تسلم": { details: " زينب بنت حمود ولد الهادي  ", generation: 2, children: {}},
+                            "السالك": { details: "     امهم لخذيره منت ابهاه  ", generation: 2, children: {}},
+                            "صفية": { details: " امهم لخذيره منت ابهاه  ", generation: 2, children: {}},   
+                            } },
+                            "السيد  ": { details: "", generation: 2, children: {} },
+                            "الحافظ": { details: " صفية بنت احمد  الحاج", generation: 2, children: {} },
+                            "متو": { details: "مريم بنت السيد", generation: 2, children: {} },
+                            "ابراهيم": { details: "امهم صفية منت سيدي ولد سيد المين", generation: 2, children: {} },
+                            "خدجوه": { details: " امهم صفية منت سيدي ولد سيد المين ", generation: 2, children: {} },
+                            "زينب": { details: "امهم صفية منت سيدي ولد سيد المين ", generation: 2, children: {} },
+                            "سيد احمد": { details: " امهم صفية منت سيدي ولد سيد المين", generation: 2, children: {
+                            "عيشه": { details: "  امهم النمه منت  السالك ولد ابراهيم ولد دحمان   ", generation: 2, children: {}},
+                            "السالك": { details: "  امهم النمه منت  السالك ولد ابراهيم ولد دحمان   ", generation: 2, children: {}},
+                            "ابراهيم": { details: "  امهم النمه منت  السالك ولد ابراهيم ولد دحمان   ", generation: 2, children: {}},    
+                            } },
+                            "لاربا س": { details: "امهم صفية منت سيدي ولد سيد المين", generation: 2, children: {
+                            "السالك": { details: " امهم خادجة منت محمد سالم ولد حمهاه", generation: 2, children: {}},
+                            "سيدي": { details: " امهم خادجة منت محمد سالم ولد حمهاه", generation: 2, children: {}},    
+                            } },
+                            "سيدي": { details: "امهم صفية منت سيدي ولد سيد المين", generation: 2, children: {} },
+                            "صدام": { details: "امهم صفية منت سيدي ولد سيد المين", generation: 2, children: {} },
+                            "الغالية": { details: "امهم صفية منت سيدي ولد سيد المين", generation: 2, children: {} },
+                            "ربيع": { details: "امهم صفية منت سيدي ولد سيد المين", generation: 2, children: {} },
+                            "مريم": { details: "   امهم صفية منت سيدي ولد سيد المين ", generation: 2, children: {} },
+                            "جميله": { details: "   امهم صفية منت سيدي ولد سيد المين ", generation: 2, children: {} }
+                                
+                            } },
+                            "فاطمه السالكه": { details: "امهم الغالية منت ابهاه ولد محمد سالم ولد ابها", generation: 2, children: {} },
+                            "مريم": { details: "امهم الغالية منت ابهاه ولد محمد سالم ولد ابها ", generation: 2, children: {} },
+                            "إبراهيم": { details: "امهم الغالية منت ابهاه ولد محمد سالم ولد ابها", generation: 2, children: {
+                            "سيد احمد": { details: "     منت جوزيف      ", generation: 2, children: {} },
+                            " متو": { details: "     امهم فاطمة منت لحلو ولد ابهاه      ", generation: 2, children: {} },   
+                            "السالك ": { details: "     امهم فاطمة منت لحلو ولد ابهاه       ", generation: 2, children: {} },   
+                            " اديده": { details: "     امهم فاطمة منت لحلو ولد ابهاه", generation: 2, children: {} },
+                            " ابوه-لحلو": { details: "     امهم فاطمة منت لحلو ولد ابهاه", generation: 2, children: {} }, 
+                            " ممين": { details: "     امهم فاطمة منت لحلو ولد ابهاه", generation: 2, children: {} },        
+
+                            } },
+                            "خدجوه": { details: "امهم الغالية منت ابهاه ولد محمد سالم ولد ابها", generation: 2, children: {} },
+                            "ربيعة": { details: "امهم الغالية منت ابهاه ولد محمد سالم ولد ابها", generation: 2, children: {} },
+                            "متو": { details: "امهم الغالية منت ابهاه ولد محمد سالم ولد ابها", generation: 2, children: {} }
                             
                         }
                     },
@@ -421,8 +524,11 @@
                         details: "",
                         generation: 1,
                         children: {
-                            "السالك": { details: "اميه خديجه بنت سيد أحمد ولد حمدان", generation: 2, children: {} },
-                            "سيدي": { details: "اميه خديجه بنت بيي", generation: 2, children: {} }
+                            "السالك": { details: "امه فاطمة بنت سيداحمد ولد حمهاه   ", generation: 2, children: {
+                            "إبراهيم": { details: "امه ابيب بنت محمد الشيخ ولد السيد ولد   دداه", generation: 2, children: {}} ,    
+                            }},
+                            
+                            "سيد ": { details: "  امه خداجه بنت بيبي ", generation: 2, children: {} }
                         
                         }
                     },
@@ -435,37 +541,108 @@
                         details: "",
                         generation: 1,
                         children: {
-                            "منه": { details: "امها خديجة بنت زركان\nأم أحمد سالم أحمدنان", generation: 2, children: {} },
-                            "فاطمة": { details: "أم إبناء اعمر ولد أرزون", generation: 2, children: {} },
-                            "محمد الملقب اباه": { details: "", generation: 2, children: {} },
-                            "سيد أحمد الملقب كازه": { details: "لم يعقب", generation: 2, children: {} },
-                            "عالي": { details: "", generation: 2, children: {} },
-                            "أخديجه": { details: "أم إبناء أحمد ولد أرزون", generation: 2, children: {} },
-                            "محمد الملقب معين": { details: "", generation: 2, children: {} },
-                            "خاليه": { details: "أم إبناء إبراهيم ولد أرزون", generation: 2, children: {} },
-                            "أم البنين الملقبة أبيه": { details: "أم ابن السالك ولد أحمد بنت سيبت البولت", generation: 2, children: {} },
-                            "هندم": { details: "أم إبناء ولد البشير", generation: 2, children: {} },
-                            "العالية": { details: "أم إبناء ولد يحي", generation: 2, children: {} },
-                            "سيدوي": { details: "", generation: 2, children: {} },
-                            "صباح": { details: "", generation: 2, children: {} },
-                            "مولاي": { details: "", generation: 2, children: {} },
-                            "جده": { details: "", generation: 2, children: {} },
-                            "فاتو": { details: "أم إبناء فصال ولد أحمد", generation: 2, children: {} },
-                            "صفية": { details: "أم إبناء جمال ولد الحافظ", generation: 2, children: {} }
+                            "متو ام ابناء احمد سالم احمدناه": { details: "  صفية بنت احمد  الحاج", generation: 2, children: {} },
+                            " فاطمة ام ابناء اعمر ولد ازوين" : { details: "       ام الفضلي منت سيد اعلي - اكدال   ", generation: 2, children: {} },
+                            "محمد الملقب اباه  ": { details: " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  سيد احمد الملقب كازه  لم يعقب  ": { details: " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  عالي        ": { details:  " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  اخديجه ام ابناء احمد ولد الزين ": { details:  " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "محمد لمين الملقب ممين ": { details:  " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  خدامه ام ابناء ابراهيم ولد ازوين        ": { details:  " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  ام البنين الملقبة ابيه ام ابن السالك ولد احديد و بنت سيد محمد لبات        ": { details:  " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  هندوام ابناء ولد البشير        ": { details:  " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  العالية ام ابناء ولد يحي        ": { details:  " ام الفضلي منت سيد اعلي - اكدال", generation: 2, children: {} },
+                            "  سيدي        ": { details:  " خداجه منت احمد الحاج", generation: 2, children: {} },
+                            "  صباح        ": { details:  " خداجه منت احمد الحاج", generation: 2, children: {} },
+                            "  مولاي        ": { details:  " خداجه منت احمد الحاج", generation: 2, children: {} },
+                            "  جده        ": { details:  " خداجه منت احمد الحاج", generation: 2, children: {} },
+                            "  فاتو ام ابناء فيصل ولد مامون": { details:  " خداجه منت احمد الحاج", generation: 2, children: {} },
+                            "  صفية ام ابناء جمال ولد الحافظ     ": { details:  " خداجه منت احمد الحاج", generation: 2, children: {} },
+
+                            
                         }
                     },
                      "السيد": {
                         details: "",
                         generation: 1,
                         children: {
-                             "محمد الشيخ": { details: "", generation: 2, children: {
-                                "أغلانه": { details: "أم سهيله الشريفه", generation: 3, children: {} }
+                            "محمد الشيخ": { details: "امه السالمه منت شاده الملقبه بابيه", generation: 2, children: {
+                            "سيدي لم يعقب ": { details: " امه امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {}},
+                            "السالك ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {
+                                "الشيخ ": { details: "امه  امرييم بنت السالك ولد ابراهيم ولد دحمان", generation: 3, children: {}},
+                                 "ماتبكه ": { details: "امه  امرييم بنت السالك ولد ابراهيم ولد دحمان", generation: 3, children: {}},
+                                  "امنة ": { details: "امه  امرييم بنت السالك ولد ابراهيم ولد دحمان", generation: 3, children: {}},
+                                   "لمينه ": { details: "امه  امرييم بنت السالك ولد ابراهيم ولد دحمان", generation: 3, children: {}},
+                                    
+                                
                             }},
-                            "أخديجه - أدبه": { details: "إبناء محمد السالك بن كدنه", generation: 2, children: {} },
-                            "سيد أحمد": { details: "لم يعقب", generation: 2, children: {} },
-                            "مريم": { details: "أم إبناء محمد سيد ولد حماد", generation: 2, children: {} },
-                            "الحافظ": { details: "", generation: 2, children: {} },
-                            "السالك - هيداله": { details: "", generation: 2, children: {} }
+                            "ابيب ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {
+                                "ام ابن السالك ولد ابراهيم دداه و ابناء محمد ولد لحلو ": { details: "", generation: 2, children: {}},
+                                
+                            }},
+                            "محمد - الكحزه ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {
+                             "السالمه ": { details: "امها فاطمة بنت محمد عالي ولد ابهاه", generation: 3, children: {}},   
+                             "محمد سالم ": { details: " مريم بنت محمدبوي ولد احمد تلوميت", generation: 3, children: {}}, 
+                              "الحافظ  ": { details: " مريم بنت محمدبوي ولد احمد تلوميت", generation: 3, children: {}},
+                               "اكوارو  ": { details: " مريم بنت محمدبوي ولد احمد تلوميت", generation: 3, children: {}},
+                                "الشيخ  ": { details: " مريم بنت محمدبوي ولد احمد تلوميت", generation: 3, children: {}},
+                                 "احمد  ": { details: " مريم بنت محمدبوي ولد احمد تلوميت", generation: 3, children: {}},
+                            }},
+                            "فاطمة - الليمو ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {}},
+                            "الحافظ ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {}},
+                               
+                                
+                            
+                            "محمدو ": { details: " امه امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {
+                                "الشيخ ": { details: " امه سعداني بنت سيدي ولد بدي   ", generation: 2, children: {}},
+                                "سيدي ": { details: " امه سعداني بنت سيدي ولد بدي   ", generation: 2, children: {}},
+
+                            }},
+                            "محمد لغظف ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {
+                                "امنة ": { details: "امامه بوها دحمان ", generation: 3, children: {}},
+                            }},
+                            " عبد الله": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {}},
+                            "لاله ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {}},
+                            "عبد القادر - مدو ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {}},
+                            "محمد محمود ": { details: "امه  امنة بنت محمد ولد محمد الشيخ الملقب خديه ولد شاد", generation: 2, children: {}},
+                            
+
+
+                            }},
+                            "أخديجه - أدبه": { details: " امه السالمه منت شاده الملقبه بابيه ", generation: 2, children: {
+                            "ام ابناء محمد السالك ولد كايه": { details: "       ", generation: 2, children: {}},
+                                
+                            } },
+                            "سيد أحمد": { details: "لم يعقب  امه السالمه منت شاده الملقبه بابيه", generation: 2, children: {} },
+                            "مريم": { details: "     امه السالمه منت شاده الملقبه بابيه", generation: 2, children: {
+                            "أم  إبناء محمد سالم  ولد حمهاه": { details: "  ", generation: 2, children: {}},
+
+                            } },
+                            "الحافظ": { details: "امه السالمه منت شاده الملقبه بابيه", generation: 2, children: {
+                             "مريم ": { details: "امها فاطمة بنت الديه ام ابناء احمد ولد كركوب ", generation: 2, children: {}},
+                              "اعل الشيخ ": { details: "امه ميمونه بنت الحافظ ولد دداه  ", generation: 2, children: {
+                                "الحافظ  ": { details: "   اديده بنت ابراهيم ولد الدحدي    ", generation: 3, children: {}},
+                              }},
+                               "اسماعيل  ": { details: "امه ميمونه بنت الحافظ ولد دداه  ", generation: 2, children: {}},
+                                " محمد الشيخ - دبدوب": { details: "امه ميمونه بنت الحافظ ولد دداه  ", generation: 2, children: {}},
+                                 "سيدي  ": { details: "امه ميمونه بنت الحافظ ولد دداه  ", generation: 2, children: {}},
+                                 "فاطمة  ": { details: "امه ميمونه بنت الحافظ ولد دداه  ", generation: 2, children: {}},
+                                 "حماده  ": { details: "امه ميمونه بنت الحافظ ولد دداه  ", generation: 2, children: {}},
+                                
+                            
+                            } },
+                            "السالك - هيداله": { details: "امه السالمه منت شاده الملقبه بابيه", generation: 2, children: {
+                                " السالمه ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+                                "اخديجه  ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+                                "ام المومنين  ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+                                "مريم  ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+                                 "فاتو  ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+                                 "بلاه  ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+                                "ممين  ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+                                "نور ه  ": { details: "    امها  السيده بنت سيد اعمر   ", generation: 2, children: {}},
+
+
+                            } }
                         }
                           
                     },
@@ -473,16 +650,53 @@
                         details: "",
                         generation: 1,
                         children: {
-                             "إبراهيم": { details: "ابن محمد محمود", generation: 2, children: {} },
-                            "إسماعيل": { details: "لم يعقب", generation: 2, children: {} },
-                            "السالك": { details: "ابن محمد محمود", generation: 2, children: {
-                                "مريم": { details: "أم إبناء البراك ولد حمود جماد", generation: 3, children: {} },
-                                "المختار - الداه": { details: "", generation: 3, children: {} }
-                            }}
+                            "إبراهيم": { details: " امه فاطمة منت اليدا ", generation: 2, children: {
+                                 "الحافظ": { details: "  النجاةاركيبية    ", generation: 2, children: {}},
+                                 "العاليه": { details: "  النجاةاركيبية    ", generation: 2, children: {}},
+                                  "ميمونه": { details: "   مريم بنت محفوظ ولد حمها    ", generation: 2, children: {}},
+                                   "سيدبوي": { details: "   مريم بنت محفوظ ولد حمها    ", generation: 2, children: {}},
+                                   "محفوظ": { details: "   مريم بنت محفوظ ولد حمها    ", generation: 2, children: {}},
+                                   "اعل": { details: "   مريم بنت محفوظ ولد حمها    ", generation: 2, children: {}},
+                                   "حماده": { details: "   مريم بنت محفوظ ولد حمها    ", generation: 2, children: {}},
+
+
+                            } },
+                            "إسماعيل": { details: "    امه  فاطمة منت اليدا لم يعقب", generation: 2, children: {} },
+                            "السالك": { details: "امه  فاطمة منت اليداس", generation: 2, children: {
+                                "فاطمة": { details: " اكرستين اسبانية", generation: 2, children: {}},
+                                "فاطمة": { details: " اكرستين اسبانية", generation: 2, children: {}},
+
+                            }},
+                            "مريم": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {
+                            "ام ابناء السالك ولد حمود حمهاه": { details: " ", generation: 2, children: {}},    
+                            
+                            } },
+                            "المختار - الداه": { details: "امه  فاطمة منت اليدا", generation: 2, children: {} },
+                            "اغلانه": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {
+                            "  ام سهله الشريفه ": { details: " ", generation: 2, children: {}},    
+                            } },
+                            "محمد - حماده": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {} },
+                            "ميمونه": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {
+                             "   ام ابناء الحافظ ولد السيد ولد دداه  ": { details: " ", generation: 2, children: {}},    
+                            } },
+                            "سيد بوي": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {} },
+                            "جمال": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {} },
+                            "امته": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {
+                              "   ام ابناء مولاي ولد السالك ولد دداه": { details: " ", generation: 2, children: {}},   
+                            } },
+                            "خدامه": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {
+                               "  ام ابناء ولد رمظان": { details: " ", generation: 2, children: {}},   
+                            } },
+                            "الطاهره": { details: "امه ابناءه فاطمة منت اليدا", generation: 2, children: {
+                                 "  ام ابناء احمد ولد عبد الله ولد ابهاه   ": { details: " ", generation: 2, children: {}}, 
+                            } },
+                        
+
+                            
                         }
                     },    
                     "محمد محمود": {
-                        details: "لم يعقب",
+                        details: "توفي صبيا ",
                         generation: 1,
                         children: {
                            
